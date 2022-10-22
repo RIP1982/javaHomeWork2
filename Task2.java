@@ -9,12 +9,12 @@ public class Task2 {
     public static void main(String[] args) {
         int[] newArray = fillArray();
         System.out.println(Arrays.toString(newArray));
-        for (int i = 1; i < newArray.length; i++) {
-            for (int j = 0; j < newArray.length; j++) {
-                if(newArray[i] < newArray[i - 1]) {
-                    int temp = newArray[i];
-                    newArray[i] = newArray[i - 1];
-                    newArray[i - 1] = temp;
+        for (int i = 0; i < newArray.length; i++) {
+            for (int j = newArray.length - 1; j > i; j--) {
+                if(newArray[j] < newArray[j - 1]) {
+                    int temp = newArray[j];
+                    newArray[j] = newArray[j - 1];
+                    newArray[j - 1] = temp;
                     Logger logger = Logger.getAnonymousLogger();
                     logger.info(Arrays.toString(newArray));
                 }
