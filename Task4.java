@@ -1,37 +1,51 @@
 // К калькулятору из предыдущего дз добавить логирование.
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Task4 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         double a = addNum();
         double b = addNum();
         String symbol = sign();
         calc(a, b, symbol);
     }
 
-    static void calc(double a, double b, String symbol) {
-        Logger logger = Logger.getAnonymousLogger();
+    static void calc(double a, double b, String symbol) throws IOException {
+        Logger logger = Logger.getLogger(Task4.class.getName());
+        FileHandler fh = new FileHandler("src/calc.xml");
+        logger.addHandler(fh);
+        SimpleFormatter sf = new SimpleFormatter();
+        fh.setFormatter(sf);
         if (symbol.equalsIgnoreCase("+")) {
+            System.out.println(a + " + " + b + " = " + sum(a, b));
             logger.info(a + " + " + b + " = " + sum(a, b));
         }
         else if (symbol.equalsIgnoreCase("-")) {
+            System.out.println(a + " - " + b + " = " + deduct(a, b));
             logger.info(a + " - " + b + " = " + deduct(a, b));
         }
         else if (symbol.equalsIgnoreCase("*")) {
+            System.out.println(a + " * " + b + " = " + multiply(a, b));
             logger.info(a + " * " + b + " = " + multiply(a, b));
         }
         else if (symbol.equalsIgnoreCase("/")) {
+            System.out.println(a + " / " + b + " = " + div(a, b));
             logger.info(a + " / " + b + " = " + div(a, b));
         }
         else if (symbol.equalsIgnoreCase("V")) {
+            System.out.println(b + " V " + a + " = " + root(a, b));
             logger.info(b + " V " + a + " = " + root(a, b));
         }
         else if (symbol.equalsIgnoreCase("^")) {
+            System.out.println(a + " ^ " + b + " = " + pow(a, b));
             logger.info(a + " ^ " + b + " = " + pow(a, b));
         }
         else {
+            System.out.println("Input incorrect symbol!");
             logger.info("Input incorrect symbol!");
         }
     }
